@@ -4,6 +4,7 @@ import countryList from 'country-list';
 import { useEffect } from "react";
 
 const WeatherContainer = ({ weather,setWeather,theme,handleThemeSwitch }) => {
+  console.log(weather)
   const [isCelsius, setIsCelsius] = useState(true);
   const [city, setCity] = useState('');
 
@@ -27,8 +28,9 @@ const WeatherContainer = ({ weather,setWeather,theme,handleThemeSwitch }) => {
   };
 
   const apiKey = 'dbfffa2a1d3925580e7d54e7c5db1890';
-
+  let lastCity = null;
   const searchWeather = () => {
+    lastCity = city;
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
       .then((response) => response.json())
       .then((data) => {
@@ -37,6 +39,13 @@ const WeatherContainer = ({ weather,setWeather,theme,handleThemeSwitch }) => {
       .catch((error) => {
         console.error('Error al buscar el clima:', error);
       });
+      const miFuncion = () => {
+        input.value=""
+      input.removeEventListener('input',miFuncion)
+      }
+    setCity(`Buscaste : ${lastCity}`);
+    const input = document.getElementById('miInput');
+    input.addEventListener('input', miFuncion)
   };
 
   const changeUnitTemp = (temp) => {
@@ -64,11 +73,14 @@ const WeatherContainer = ({ weather,setWeather,theme,handleThemeSwitch }) => {
     "few clouds" : "pocas nubes",
     "scattered clouds" : "probablemente nublado",
     "broken clouds" : "mayormente nublado",
+    "overcast clouds" : "mayormente nublado",
     "shower rain" : "aguacero",
+    "light rain" : "lluvia",
     "rain" : "lluvia",
     "thunderstorm" : "tormenta eléctrica",
     "snow" : "nieve",
     "mist" : "ventisca",
+    "haze" : "ventisca",
   }
 
   const countryName = countryList.getName(weather.sys.country);
@@ -94,7 +106,7 @@ const WeatherContainer = ({ weather,setWeather,theme,handleThemeSwitch }) => {
       <div className="grid gap-5 sm:grid-cols-[1fr_auto]">
         {/* Seccion superior */}
         <article className="bg-slate-500/50 rounded-3xl grid grid-cols-2 items-center p-3 dark:bg-zinc-500 dark:bg-opacity-50">
-          <h4 className="col-span-2 text-[6 vw] capitalize md:text-[5.5vw] 2xl:text-[1.8vw] p-2 md:p-4 lg:text-[2.4vw]">
+          <h4 className="col-span-2 text-[6vw] capitalize md:text-[5.5vw] 2xl:text-[1.8vw] p-2 md:p-4 lg:text-[2.4vw]">
             {descriptionsWeather[weather.weather[0].description]}
           </h4>
           <span className="text-[12vw] md:text-[6vw] lg:text-[3vw] p-2">{changeUnitTemp(weather.main.temp)}</span>
