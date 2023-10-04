@@ -81,6 +81,7 @@ const WeatherContainer = ({ weather,setWeather,theme,handleThemeSwitch }) => {
     "snow" : "nieve",
     "mist" : "ventisca",
     "haze" : "ventisca",
+    "fog" : "ventisca",
   }
 
   const countryName = countryList.getName(weather.sys.country);
