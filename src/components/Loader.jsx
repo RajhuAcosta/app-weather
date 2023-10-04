@@ -25,6 +25,8 @@ const Loader = () => {
                     <img className='w-[5vh]' src="/icon-loaders/icon_loader_8.png" alt="" />
             </i>
             <i id="i" className={`w-[93.6vw] m-auto flex h-[6.5vh] ml-3 bg-[#373839] -translate-y-[7.1vh] transition duration-5000 ease-linear ${renderizado ? 'translate-x-full' : ''} md:-translate-y-[7.1vh] md:ml-6.9`}></i>
+            <p className='text-white/70 text-center'>Aceptar ubicación : </p>
+            <p className='text-white/70 text-center'>Muestra clima actual </p>
         </div>
     </main>
   )

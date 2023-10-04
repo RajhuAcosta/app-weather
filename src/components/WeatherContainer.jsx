@@ -34,7 +34,13 @@ const WeatherContainer = ({ weather,setWeather,theme,handleThemeSwitch }) => {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
       .then((response) => response.json())
       .then((data) => {
-        setWeather(data);
+        if (data.cod === '404') {
+          // La ciudad no se encontró, puedes mostrar un mensaje de error o tomar otra acción adecuada
+          console.error('Ciudad no encontrada');
+        } else {
+          // La respuesta es válida y contiene datos
+          setWeather(data);
+        }
       })
       .catch((error) => {
         console.error('Error al buscar el clima:', error);
@@ -90,7 +96,7 @@ const WeatherContainer = ({ weather,setWeather,theme,handleThemeSwitch }) => {
     <section className="text-center grid gap-[5vh] lg:gap-[3vh] px-[2vw] ">
       <header className="flex items-center md:text-[3.7vw] lg:text-[1.6vw] 2xl:text-[1.03vw] justify-evenly m-auto">
         <div className="flex items-center relative">
-          <input className="w-[50vw] lg:w-[30vw] 2xl:w-[25vw] bg-slate-500/50 dark:bg-zinc-500/50 rounded-[2rem] mr-[2vw] focus:outline-none focus:border-blue-500 pl-[4vw] 2xl:pl-[1vw] md:pl-[2vw] transition duration-300 ease-in-out" type="text" id="miInput" value={city} onChange={handleInputChange} onKeyPress={handleEnterKeyPress}/>
+          <input className="w-[50vw] lg:w-[30vw] 2xl:w-[25vw] bg-slate-500/50 dark:bg-zinc-500/50 rounded-[2rem] mr-[2vw] focus:outline-none focus:border-blue-500 pl-[4vw] 2xl:pl-[1vw] md:pl-[2vw] transition duration-300 ease-out" type="text" id="miInput" value={city} onChange={handleInputChange} onKeyPress={handleEnterKeyPress}/>
           <label htmlFor="miInput" className="absolute inset-y-0 left-0 pl-[3.2vw] flex items-center text-black/75 dark:text-white transition-all duration-300 ease-out">
             <i className='bx bx-search-alt-2'></i>
             <span className="pl-[2vw]">Busca una ciudad</span>
