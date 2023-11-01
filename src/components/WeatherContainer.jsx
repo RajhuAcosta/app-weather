@@ -49,7 +49,7 @@ const WeatherContainer = ({ weather,setWeather,theme,handleThemeSwitch }) => {
         input.value=""
       input.removeEventListener('input',miFuncion)
       }
-    setCity(`Buscaste : ${lastCity}`);
+    setCity(`You've been search : ${lastCity}`);
     const input = document.getElementById('miInput');
     input.addEventListener('input', miFuncion)
   };
